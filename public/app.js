@@ -11,7 +11,7 @@ function getUsers() {
             }
         }
     };
-    xhttp.open("GET", `/get-users`, true);
+    xhttp.open("GET", `http://${location.host}/get-users`, true);
     xhttp.send();
 }
 
@@ -29,6 +29,7 @@ function displayUsers(doc) {
     parent.append(lastname);
     parent.append(birthdate);
     parent.append(lineBreak);
+    parent.classList.add('p-2')
     document.getElementById('users').append(parent);
 }
 
