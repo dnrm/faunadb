@@ -8,7 +8,7 @@ function getUsers() {
             displayUsers();
         }
     };
-    xhttp.open("GET", "http://localhost/get-users", true);
+    xhttp.open("GET", "https://faunadb.herokuapp.com/", true);
     xhttp.send();
 }
 
