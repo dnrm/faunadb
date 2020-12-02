@@ -1,0 +1,20 @@
+{
+  "name": "FaunaDB",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "npx tailwindcss-cli@latest build -o public/style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "faunadb": "^4.0.0",
+    "nodemon": "^2.0.6",
+    "tailwindcss": "^2.0.1"
+  }
+}
