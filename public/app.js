@@ -5,21 +5,24 @@ function getUsers() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             response = JSON.parse(xhttp.responseText)['data'];
-            displayUsers();
+            for (i = 0; i < response.length; i++) {
+                let doc = response[i]["data"]
+                displayUsers(doc)
+            }
         }
     };
-    xhttp.open("GET", "https://faunadb.herokuapp.com/get-users", true);
+    xhttp.open("GET", `/get-users`, true);
     xhttp.send();
 }
 
-function displayUsers() {
+function displayUsers(doc) {
     let parent = document.createElement('div');
     parent.classList.add('user-container');
-    let name = document.createElement('h3'); name.innerText = response.name;
+    let name = document.createElement('h3'); name.innerText = doc.name;
     name.classList.add('user-name', 'text-xl');
-    let lastname = document.createElement('h4'); lastname.innerText = response.lastname;
+    let lastname = document.createElement('h4'); lastname.innerText = doc.lastname;
     lastname.classList.add('user-lastname');
-    let birthdate = document.createElement('p'); birthdate.innerText = response.birthDate;
+    let birthdate = document.createElement('p'); birthdate.innerText = doc.birthDate;
     birthdate.classList.add('user-birthdate');
     parent.append(name);
     parent.append(lastname);
