@@ -1,4 +1,5 @@
 require('dotenv').config()
+const cors = require('cors');
 const faunadb = require('faunadb');
 const Query = faunadb.query;
 const express = require('express');
@@ -31,6 +32,8 @@ const demoConnection = client.query(
         Lambda("i", Get(Var("i")))
     )
 );
+
+app.use(cors());
 
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public/index.html'));
