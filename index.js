@@ -1,4 +1,5 @@
 require('dotenv').config()
+const nocache = require('nocache');
 const cors = require('cors');
 const faunadb = require('faunadb');
 const Query = faunadb.query;
@@ -34,11 +35,7 @@ const demoConnection = client.query(
 );
 
 app.use(cors());
-
-app.use((req, res, next) => {
-    res.set('Cache-Control', 'no-store')
-    next()
-})
+app.use(nocache());
 
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public/index.html'));
