@@ -24,9 +24,11 @@ function displayUsers(doc) {
     lastname.classList.add('user-lastname');
     let birthdate = document.createElement('p'); birthdate.innerText = doc.birthDate;
     birthdate.classList.add('user-birthdate');
+    let lineBreak = document.createElement('hr');
     parent.append(name);
     parent.append(lastname);
     parent.append(birthdate);
+    parent.append(lineBreak);
     document.getElementById('users').append(parent);
 }
 
