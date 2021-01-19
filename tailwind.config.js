@@ -1,9 +1,9 @@
 module.exports = {
     purge: {
-        enabled: true,
+        enabled: false,
         content: ['./public/*.html', './public/*.js']
     },
-    darkMode: false, // or 'media' or 'class'
+    darkMode: "class", // or 'media' or 'class'
     theme: {},
     variants: {},
     plugins: [],
