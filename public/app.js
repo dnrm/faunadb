@@ -16,21 +16,13 @@ function getUsers() {
 }
 
 function displayUsers(doc) {
-    let parent = document.createElement('div');
-    parent.classList.add('user-container');
-    let name = document.createElement('h3'); name.innerText = doc.name;
-    name.classList.add('user-name', 'text-xl');
-    let lastname = document.createElement('h4'); lastname.innerText = doc.lastname;
-    lastname.classList.add('user-lastname');
-    let birthdate = document.createElement('p'); birthdate.innerText = doc.birthDate;
-    birthdate.classList.add('user-birthdate');
-    let lineBreak = document.createElement('hr');
-    parent.append(name);
-    parent.append(lastname);
-    parent.append(birthdate);
-    parent.append(lineBreak);
-    parent.classList.add('p-2')
-    document.getElementById('users').append(parent);
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+        <td class="text-center p-2">${doc.name}</td>
+        <td class="text-center p-2">${doc.lastname}</td>
+        <td class="text-center p-2">${doc.birthDate}</td>
+    `;
+    document.querySelector('#tbody').append(tr);
 }
 
 getUsers();
