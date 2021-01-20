@@ -9,7 +9,7 @@
     "build-css": "npx tailwindcss-cli@latest build -o public/style.css"
   },
   "keywords": [],
-  "author": "",
+  "author": "Daniel Medina <daniel@medina.com>",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
@@ -19,5 +19,6 @@
     "nocache": "^2.1.0",
     "nodemon": "^2.0.6",
     "tailwindcss": "^2.0.1"
-  }
+  },
+  "repository": "https://github.com/dnrm/faunadb"
 }
