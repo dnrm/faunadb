@@ -22,6 +22,7 @@ function displayUsers(doc) {
         <td class="text-center p-2">${doc.lastname}</td>
         <td class="text-center p-2">${doc.birthDate}</td>
     `;
+    tr.classList.add('hover:bg-gray-900');
     document.querySelector('#tbody').append(tr);
 }
 
