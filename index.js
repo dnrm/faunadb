@@ -1,11 +1,12 @@
-require("dotenv").config();
-const nocache = require("nocache");
-const cors = require("cors");
-const faunadb = require("faunadb");
+require('dotenv').config();
+const nocache = require('nocache');
+const cors = require('cors');
+const faunadb = require('faunadb');
 const Query = faunadb.query;
-const express = require("express");
-const path = require("path");
-const { join } = require("path");
+const express = require('express');
+const path = require('path');
+const { join } = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -22,10 +23,12 @@ const {
   Paginate,
   Var,
   Ref,
+  Create,
+  Delete
 } = faunadb.query;
 
 const demoConnection = client.query(
-  Map(Paginate(Documents(Collection("users"))), Lambda("i", Get(Var("i"))))
+  Map(Paginate(Documents(Collection('users'))), Lambda('i', Get(Var('i'))))
 );
 
 const userQuery = (id) => {
@@ -34,14 +37,15 @@ const userQuery = (id) => {
 
 app.use(cors());
 app.use(nocache());
+app.use(bodyParser.json());
 
-app.get("/", (req, res) => {
-  res.sendFile(join(__dirname, "public/index.html"));
+app.get('/', (req, res) => {
+  res.sendFile(join(__dirname, 'public/index.html'));
 });
 
-app.use("/static", express.static("public"));
+app.use('/static', express.static('public'));
 
-app.get("/get-users", (req, res) => {
+app.get('/get-users', (req, res) => {
   demoConnection
     .then(function (response) {
       res.status(200).send(response);
@@ -50,14 +54,14 @@ app.get("/get-users", (req, res) => {
       if (err) {
         console.log(data);
         res.status(500).send({
-          message: "Something went wrong on our end",
+          message: 'Something went wrong on our end',
         });
       }
     });
 });
 
-app.get("/get-user/:id", (req, res) => {
-  const query = client.query(Get(Ref(Collection("users"), req.params.id)));
+app.get('/get-user/:id', (req, res) => {
+  const query = client.query(Get(Ref(Collection('users'), req.params.id)));
 
   query.then((response) => {
     res.status(200).send({
@@ -65,6 +69,37 @@ app.get("/get-user/:id", (req, res) => {
     });
   });
 });
+
+app.post('/create-user', (req, res) => {
+  const query = client.query(Create(Collection('users'), {
+    data: {
+      name: req.body["name"],
+      lastname: req.body["lastname"],
+      birthDate: req.body["birthDate"],
+      img: req.body["img"]
+    }
+  }));
+
+  query.then((response) => {
+    res.status(200).send({
+      response
+    })
+  })
+});
+
+app.delete('/delete-user/:id', (req, res) => {
+  const query = client.query(
+    Delete(
+      Ref(Collection('users'), req.params.id)
+    )
+  )
+
+  query.then((response) => {
+    res.status(200).send({
+      response
+    })
+  })
+})
 
 app.listen(port, () => {
   console.log(`App listening on http://localhost:${port}`);
