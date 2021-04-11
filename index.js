@@ -71,6 +71,7 @@ app.get('/get-user/:id', (req, res) => {
 });
 
 app.post('/create-user', (req, res) => {
+
   const query = client.query(Create(Collection('users'), {
     data: {
       name: req.body["name"],
