@@ -11,7 +11,7 @@ function getUsers() {
             }
         }
     };
-    xhttp.open("GET", `/get-users`, true);
+    xhttp.open("GET", `./get-users`, true);
     xhttp.send();
 }
 
