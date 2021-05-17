@@ -31,10 +31,6 @@ const demoConnection = client.query(
   Map(Paginate(Documents(Collection('users'))), Lambda('i', Get(Var('i'))))
 );
 
-const userQuery = (id) => {
-  return client.query(Get(Ref(id)));
-};
-
 app.use(cors());
 app.use(nocache());
 app.use(bodyParser.json());
@@ -46,7 +42,9 @@ app.get('/', (req, res) => {
 app.use('/static', express.static('public'));
 
 app.get('/get-users', (req, res) => {
-  demoConnection
+  client.query(
+    Map(Paginate(Documents(Collection('users'))), Lambda('i', Get(Var('i'))))
+  )
     .then(function (response) {
       res.status(200).send(response);
     })
