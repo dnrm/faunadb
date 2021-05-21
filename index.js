@@ -1,9 +1,7 @@
 require('dotenv').config();
 const cors = require('cors');
 const faunadb = require('faunadb');
-const Query = faunadb.query;
 const express = require('express');
-const path = require('path');
 const { join } = require('path');
 const bodyParser = require('body-parser');
 
@@ -25,10 +23,6 @@ const {
   Create,
   Delete
 } = faunadb.query;
-
-const demoConnection = client.query(
-  Map(Paginate(Documents(Collection('users'))), Lambda('i', Get(Var('i'))))
-);
 
 app.use(cors());
 app.use(bodyParser.json());
