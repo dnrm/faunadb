@@ -1,5 +1,4 @@
 require('dotenv').config();
-const nocache = require('nocache');
 const cors = require('cors');
 const faunadb = require('faunadb');
 const Query = faunadb.query;
@@ -32,7 +31,6 @@ const demoConnection = client.query(
 );
 
 app.use(cors());
-app.use(nocache());
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
