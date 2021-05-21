@@ -19,7 +19,11 @@
     "faunadb": "^4.0.0",
     "nocache": "^2.1.0",
     "nodemon": "^2.0.6",
-    "tailwindcss": "^2.0.1"
+    "tailwindcss": "^2.1.2"
   },
-  "repository": "https://github.com/dnrm/faunadb"
+  "repository": "https://github.com/dnrm/faunadb",
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "postcss": "^8.3.0"
+  }
 }
