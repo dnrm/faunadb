@@ -17,12 +17,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "faunadb": "^4.0.0",
-    "nodemon": "^2.0.6",
-    "tailwindcss": "^2.1.2"
+    "nodemon": "^2.0.6"
   },
   "repository": "https://github.com/dnrm/faunadb",
-  "devDependencies": {
-    "autoprefixer": "^10.2.5",
-    "postcss": "^8.3.0"
-  }
+  "devDependencies": {}
 }
