@@ -21,7 +21,7 @@ const {
   Var,
   Ref,
   Create,
-  Delete
+  Delete,
 } = faunadb.query;
 
 app.use(cors());
@@ -34,9 +34,10 @@ app.get('/', (req, res) => {
 app.use('/static', express.static('public'));
 
 app.get('/get-users', (req, res) => {
-  client.query(
-    Map(Paginate(Documents(Collection('users'))), Lambda('i', Get(Var('i'))))
-  )
+  client
+    .query(
+      Map(Paginate(Documents(Collection('users'))), Lambda('i', Get(Var('i'))))
+    )
     .then(function (response) {
       res.status(200).send(response);
     })
@@ -61,34 +62,45 @@ app.get('/get-user/:id', (req, res) => {
 });
 
 app.post('/create-user', (req, res) => {
-
-  const query = client.query(Create(Collection('users'), {
-    data: {
-      name: req.body["name"],
-      lastname: req.body["lastname"],
-      birthDate: req.body["birthDate"],
-      img: req.body["img"]
-    }
-  }));
+  const query = client.query(
+    Create(Collection('users'), {
+      data: {
+        name: req.body['name'],
+        lastname: req.body['lastname'],
+        birthDate: req.body['birthDate'],
+        img: req.body['img'],
+      },
+    })
+  );
 
   query.then((response) => {
     res.status(200).send({
-      response
-    })
-  })
+      response,
+    });
+  });
 });
 
 app.delete('/delete-user/:id', (req, res) => {
-  const query = client.query(
-    Delete(
-      Ref(Collection('users'), req.params.id)
-    )
-  )
+  const query = client.query(Delete(Ref(Collection('users'), req.params.id)));
 
   query.then((response) => {
     res.status(200).send({
-      response
-    })
+      response,
+    });
+  });
+});
+
+app.get('/get-posts', (req, res) => {
+  const query = client.query(
+    Map(Paginate(Documents(Collection('posts'))), Lambda('i', Get(Var('i'))))
+  )
+
+  query.then(response => {
+    if (response) {
+      res.status(200).send({response})
+    } else {
+      res.status(404)
+    }
   })
 })
 
