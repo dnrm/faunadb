@@ -22,6 +22,7 @@ const {
   Ref,
   Create,
   Delete,
+  Update,
 } = faunadb.query;
 
 app.use(cors());
@@ -90,6 +91,27 @@ app.delete('/delete-user/:id', (req, res) => {
   });
 });
 
+app.put('/edit-user/:id', (req, res) => {
+  const query = client.query(
+    Update(
+      Ref(Collection('users'), req.params.id), {
+      data: {
+        name: req.body['name'],
+        lastname: req.body['lastname'],
+        birthDate: req.body['birthDate'],
+        img: req.body['img']
+      }
+    }
+    )
+  )
+
+  query.then(response => {
+    res.status(200).send({
+      response
+    })
+  })
+})
+
 app.get('/get-posts', (req, res) => {
   const query = client.query(
     Map(Paginate(Documents(Collection('posts'))), Lambda('i', Get(Var('i'))))
@@ -97,7 +119,7 @@ app.get('/get-posts', (req, res) => {
 
   query.then(response => {
     if (response) {
-      res.status(200).send({response})
+      res.status(200).send({ response })
     } else {
       res.status(404)
     }
