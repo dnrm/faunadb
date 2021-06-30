@@ -26,7 +26,7 @@ const {
 } = faunadb.query;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.sendFile(join(__dirname, 'public/index.html'));
